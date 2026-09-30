@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ぽこポケ世代別図鑑</title>
+    <meta name="description" content="ぽこあポケモンに登場するポケモンを、初登場した世代（赤緑〜SV）ごとに画像つきでまとめた非公式の一覧です。" />
+    <style>
+      :root {
+        --ball-red: #ee2a2a;
+        --ball-red-dark: #b81c1c;
+        --ink: #262626;
+        --panel: #fffdf8;
+        --bg: #fff3e6;
+        --text: #2c2c2c;
+        --muted: #7a6f68;
+        --border: rgba(38, 38, 38, 0.14);
+        --card-hover: #fff6ec;
+        --dot-a: rgba(238, 42, 42, 0.06);
+        --dot-b: rgba(38, 38, 38, 0.045);
+        --dlc: #1f7fbf;
+        --event: #c98a00;
+        --link: #b81c1c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --ink: #f1ebe4;
+          --panel: #221e1c;
+          --bg: #171412;
+          --text: #ece6df;
+          --muted: #a89d95;
+          --border: rgba(241, 235, 228, 0.16);
+          --card-hover: #2c2624;
+          --dot-a: rgba(238, 42, 42, 0.08);
+          --dot-b: rgba(255, 255, 255, 0.035);
+          --dlc: #5bb4ea;
+          --event: #e6b43c;
+          --link: #ff8a80;
+        }
+      }
+      :root[data-theme="dark"] {
+        --ink: #f1ebe4;
+        --panel: #221e1c;
+        --bg: #171412;
+        --text: #ece6df;
+        --muted: #a89d95;
+        --border: rgba(241, 235, 228, 0.16);
+        --card-hover: #2c2624;
+        --dot-a: rgba(238, 42, 42, 0.08);
+        --dot-b: rgba(255, 255, 255, 0.035);
+        --dlc: #5bb4ea;
+        --event: #e6b43c;
+        --link: #ff8a80;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(var(--dot-a) 8%, transparent 9%),
+          radial-gradient(var(--dot-b) 8%, transparent 9%), var(--bg);
+        background-position: 0 0, 30px 30px;
+        background-size: 60px 60px;
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+          "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+        line-height: 1.5;
+      }
+      .wrap { width: min(1100px, 100%); margin: 0 auto; padding: 28px 16px 40px; }
+
+      header { text-align: center; margin-bottom: 18px; }
+      h1 {
+        margin: 0;
+        font-size: clamp(26px, 5vw, 40px);
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+      }
+      .sub { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: var(--panel);
+        border: 2px solid var(--ink);
+        border-radius: 20px;
+        padding: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(38, 20, 10, 0.12);
+      }
+      .gen-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+      .gen-nav a {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 4px;
+        padding: 6px 12px;
+        border: 2px solid var(--border);
+        border-radius: 999px;
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 14px;
+      }
+      .gen-nav a:hover { border-color: var(--ball-red); }
+      .gen-nav small { color: var(--muted); font-weight: 700; font-size: 12px; }
+      .search-row { display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+      input[type="search"] {
+        flex: 1 1 220px;
+        min-width: 0;
+        height: 42px;
+        padding: 0 14px;
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        background: var(--bg);
+        color: var(--text);
+        font: inherit;
+        font-size: 16px;
+        outline: none;
+      }
+      input[type="search"]:focus { border-color: var(--ball-red); }
+      .filters { display: flex; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+      .filters label { display: inline-flex; gap: 4px; align-items: center; cursor: pointer; }
+      .hit { font-size: 13px; color: var(--muted); }
+
+      section.gen {
+        background: var(--panel);
+        border: 2px solid var(--ink);
+        border-radius: 24px;
+        overflow: hidden;
+        margin-bottom: 22px;
+        scroll-margin-top: 150px;
+      }
+      .gen-head {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        padding: 12px 18px;
+        background: linear-gradient(to bottom, var(--ball-red), var(--ball-red-dark));
+        border-bottom: 2px solid var(--ink);
+        color: #fff;
+      }
+      .gen-head h2 { margin: 0; font-size: 22px; font-weight: 900; }
+      .gen-head span { font-size: 14px; font-weight: 700; opacity: 0.92; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+        gap: 8px;
+        padding: 14px;
+      }
+      .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 6px 10px;
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        text-align: center;
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 0.15s, background 0.15s, transform 0.15s;
+      }
+      a.card:hover { border-color: var(--ball-red); background: var(--card-hover); transform: translateY(-2px); }
+      .card img { width: 88px; height: 88px; object-fit: contain; }
+      .card img.broken { visibility: hidden; }
+      .no { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+      .name { font-size: 14px; font-weight: 800; color: var(--link); word-break: break-all; }
+      .badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        padding: 1px 6px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .badge.dlc { background: var(--dlc); }
+      .badge.event { background: var(--event); }
+      .empty { padding: 30px; text-align: center; color: var(--muted); }
+
+      footer { margin-top: 28px; font-size: 12px; color: var(--muted); text-align: center; }
+      footer a { color: var(--link); }
+      footer p { margin: 4px 0; }
+
+      @media (max-width: 480px) {
+        .grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; padding: 10px; }
+        .card img { width: 72px; height: 72px; }
+        .name { font-size: 13px; }
+        .toolbar { position: static; }
+        section.gen { scroll-margin-top: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>ぽこあポケモン 世代別図鑑</h1>
+        <p class="sub" id="summary"></p>
+      </header>
+
+      <div class="toolbar">
+        <nav class="gen-nav" id="genNav" aria-label="世代へジャンプ"></nav>
+        <div class="search-row">
+          <input type="search" id="q" placeholder="ポケモン名で絞り込み（ひらがな可）" aria-label="ポケモン名で絞り込み" />
+          <div class="filters">
+            <label><input type="checkbox" data-s="0" checked />本編</label>
+            <label><input type="checkbox" data-s="1" checked />DLC</label>
+            <label><input type="checkbox" data-s="2" checked />イベント</label>
+          </div>
+          <span class="hit" id="hit"></span>
+        </div>
+      </div>
+
+      <main id="list"></main>
+
+      <footer>
+        <p>名前をクリックすると <a href="https://gamewith.jp/pocoapokemon/" target="_blank" rel="noopener">GameWith ぽこあポケモン攻略</a> の各ポケモンのページが開きます。</p>
+        <p>世代は各ポケモンが初めて登場した作品で分類しています（特別な姿は元のポケモンの世代）。DLC＝ブクブクうみぞこの街、イベント＝イベント図鑑。</p>
+        <p>データ・画像: GameWith（2026年9月30日時点）。本ページは非公式のファンページです。</p>
+        <p>©Pokémon. ©Nintendo/Creatures Inc./GAME FREAK inc. ポケットモンスター・ポケモン・Pokémonは任天堂・クリーチャーズ・ゲームフリークの登録商標です。</p>
+      </footer>
+    </div>
+
+    <script>
+      const GENS = ["赤緑", "金銀", "ルビサファ", "ダイパ", "BW", "XY", "SM", "剣盾", "SV"];
+      const DATA = [{"g":0,"s":0,"no":"001","n":"フシギダネ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/001.png","aid":"547138"},{"g":0,"s":0,"no":"002","n":"フシギソウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/002.png","aid":"547296"},{"g":0,"s":0,"no":"003","n":"フシギバナ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/003.png","aid":"547401"},{"g":0,"s":0,"no":"004","n":"ヒトカゲ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/004.png","aid":"547139"},{"g":0,"s":0,"no":"005","n":"リザード","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/005.png","aid":"547400"},{"g":0,"s":0,"no":"006","n":"リザードン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/006.png","aid":"547379"},{"g":0,"s":0,"no":"007","n":"ゼニガメ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/007.png","aid":"547137"},{"g":0,"s":0,"no":"008","n":"カメール","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/008.png","aid":"547360"},{"g":0,"s":0,"no":"009","n":"カメックス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/009.png","aid":"547424"},{"g":0,"s":0,"no":"010","n":"ポッポ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/016.png","aid":"547198"},{"g":0,"s":0,"no":"011","n":"ピジョン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/017.png","aid":"547479"},{"g":0,"s":0,"no":"012","n":"ピジョット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/018.png","aid":"547982"},{"g":0,"s":0,"no":"013","n":"ナゾノクサ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/043.png","aid":"547223"},{"g":0,"s":0,"no":"014","n":"クサイハナ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/044.png","aid":"547284"},{"g":0,"s":0,"no":"015","n":"ラフレシア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/045.png","aid":"547878"},{"g":0,"s":0,"no":"017","n":"パラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/046.png","aid":"547267"},{"g":0,"s":0,"no":"018","n":"パラセクト","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/047.png","aid":"547399"},{"g":0,"s":0,"no":"019","n":"コンパン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/048.png","aid":"547307"},{"g":0,"s":0,"no":"020","n":"モルフォン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/049.png","aid":"547259"},{"g":0,"s":0,"no":"021","n":"マダツボミ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/069.png","aid":"547222"},{"g":0,"s":0,"no":"022","n":"ウツドン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/070.png","aid":"547473"},{"g":0,"s":0,"no":"023","n":"ウツボット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/071.png","aid":"547846"},{"g":0,"s":0,"no":"024","n":"ヤドン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/079.png","aid":"547218"},{"g":0,"s":0,"no":"025","n":"ヤドラン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/080.png","aid":"547314"},{"g":0,"s":0,"no":"027","n":"コイル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/081.png","aid":"547655"},{"g":0,"s":0,"no":"028","n":"レアコイル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/082.png","aid":"547359"},{"g":0,"s":0,"no":"030","n":"イワーク","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/095.png","aid":"547248"},{"g":0,"s":0,"no":"032","n":"カラカラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/104.png","aid":"547263"},{"g":0,"s":0,"no":"033","n":"ガラガラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/105.png","aid":"547801"},{"g":0,"s":0,"no":"035","n":"サワムラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/106.png","aid":"547335"},{"g":0,"s":0,"no":"036","n":"エビワラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/107.png","aid":"547158"},{"g":0,"s":0,"no":"038","n":"ドガース","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/109.png","aid":"547793"},{"g":0,"s":0,"no":"039","n":"マタドガス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/110.png","aid":"547848"},{"g":0,"s":0,"no":"040","n":"モンジャラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/114.png","aid":"548130"},{"g":0,"s":0,"no":"042","n":"ストライク","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/123.png","aid":"547150"},{"g":0,"s":0,"no":"044","n":"カイロス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/127.png","aid":"547216"},{"g":0,"s":0,"no":"045","n":"コイキング","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/129.png","aid":"547208"},{"g":0,"s":0,"no":"046","n":"ギャラドス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/130.png","aid":"547843"},{"g":0,"s":0,"no":"047","n":"メタモン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/132.png","aid":"545735"},{"g":0,"s":0,"no":"079","n":"ピカチュウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/025.png","aid":"547784"},{"g":0,"s":0,"no":"079","n":"ピカチュウ(うすいろ)","img":"https://img.gamewith.jp/img/bcbf56c0e037f7b2c40a5ef7f0222193.png","aid":"547737"},{"g":0,"s":0,"no":"080","n":"ライチュウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/026.png","aid":"547565"},{"g":0,"s":0,"no":"081","n":"ズバット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/041.png","aid":"547484"},{"g":0,"s":0,"no":"082","n":"ゴルバット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/042.png","aid":"547875"},{"g":0,"s":0,"no":"084","n":"ニャース","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/052.png","aid":"547295"},{"g":0,"s":0,"no":"085","n":"ペルシアン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/053.png","aid":"547562"},{"g":0,"s":0,"no":"086","n":"コダック","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/054.png","aid":"547444"},{"g":0,"s":0,"no":"087","n":"ゴルダック","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/055.png","aid":"548016"},{"g":0,"s":0,"no":"088","n":"ガーディ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/058.png","aid":"547352"},{"g":0,"s":0,"no":"089","n":"ウインディ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/059.png","aid":"547756"},{"g":0,"s":0,"no":"090","n":"カモネギ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/083.png","aid":"547279"},{"g":0,"s":0,"no":"091","n":"ベトベター","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/088.png","aid":"547688"},{"g":0,"s":0,"no":"092","n":"ベトベトン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/089.png","aid":"547897"},{"g":0,"s":0,"no":"093","n":"ゴース","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/092.png","aid":"547916"},{"g":0,"s":0,"no":"094","n":"ゴースト","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/093.png","aid":"547915"},{"g":0,"s":0,"no":"095","n":"ゲンガー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/094.png","aid":"548098"},{"g":0,"s":0,"no":"096","n":"ビリリダマ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/100.png","aid":"547439"},{"g":0,"s":0,"no":"097","n":"マルマイン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/101.png","aid":"547943"},{"g":0,"s":0,"no":"098","n":"タマタマ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/102.png","aid":"547304"},{"g":0,"s":0,"no":"099","n":"ナッシー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/103.png","aid":"547584"},{"g":0,"s":0,"no":"101","n":"ラッキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/113.png","aid":"547992"},{"g":0,"s":0,"no":"104","n":"エレブー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/125.png","aid":"547622"},{"g":0,"s":0,"no":"106","n":"ラプラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/131.png","aid":"547348"},{"g":0,"s":0,"no":"108","n":"カビゴン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/143.png","aid":"547727"},{"g":0,"s":0,"no":"108","n":"カビゴン(こけむし)","img":"https://img.gamewith.jp/img/898c2263fa904581c1f9d437d116eb1f.png","aid":"547741"},{"g":0,"s":0,"no":"146","n":"アーボ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/023.png","aid":"547462"},{"g":0,"s":0,"no":"147","n":"アーボック","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/024.png","aid":"547670"},{"g":0,"s":0,"no":"149","n":"ピッピ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/035.png","aid":"547324"},{"g":0,"s":0,"no":"150","n":"ピクシー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/036.png","aid":"547745"},{"g":0,"s":0,"no":"152","n":"プリン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/039.png","aid":"547371"},{"g":0,"s":0,"no":"153","n":"プクリン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/040.png","aid":"547841"},{"g":0,"s":0,"no":"154","n":"ディグダ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/050.png","aid":"547347"},{"g":0,"s":0,"no":"155","n":"ダグトリオ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/051.png","aid":"547592"},{"g":0,"s":0,"no":"156","n":"ワンリキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/066.png","aid":"547211"},{"g":0,"s":0,"no":"157","n":"ゴーリキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/067.png","aid":"547242"},{"g":0,"s":0,"no":"158","n":"カイリキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/068.png","aid":"547748"},{"g":0,"s":0,"no":"159","n":"イシツブテ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/074.png","aid":"547209"},{"g":0,"s":0,"no":"160","n":"ゴローン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/075.png","aid":"547323"},{"g":0,"s":0,"no":"161","n":"ゴローニャ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/076.png","aid":"547838"},{"g":0,"s":0,"no":"163","n":"ブーバー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/126.png","aid":"547286"},{"g":0,"s":0,"no":"207","n":"ロコン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/037.png","aid":"547539"},{"g":0,"s":0,"no":"208","n":"キュウコン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/038.png","aid":"547600"},{"g":0,"s":0,"no":"209","n":"ニョロモ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/060.png","aid":"548009"},{"g":0,"s":0,"no":"210","n":"ニョロゾ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/061.png","aid":"547889"},{"g":0,"s":0,"no":"211","n":"ニョロボン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/062.png","aid":"547949"},{"g":0,"s":0,"no":"213","n":"ケーシィ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/063.png","aid":"547606"},{"g":0,"s":0,"no":"214","n":"ユンゲラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/064.png","aid":"547979"},{"g":0,"s":0,"no":"215","n":"フーディン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/065.png","aid":"547609"},{"g":0,"s":0,"no":"217","n":"バリヤード","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/122.png","aid":"547523"},{"g":0,"s":0,"no":"218","n":"ポリゴン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/137.png","aid":"547834"},{"g":0,"s":0,"no":"221","n":"ミニリュウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/147.png","aid":"547813"},{"g":0,"s":0,"no":"222","n":"ハクリュー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/148.png","aid":"547874"},{"g":0,"s":0,"no":"223","n":"カイリュー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/149.png","aid":"547526"},{"g":0,"s":0,"no":"271","n":"プテラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/142.png","aid":"547668"},{"g":0,"s":0,"no":"280","n":"イーブイ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/133.png","aid":"547167"},{"g":0,"s":0,"no":"281","n":"シャワーズ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/134.png","aid":"547188"},{"g":0,"s":0,"no":"282","n":"サンダース","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/135.png","aid":"547189"},{"g":0,"s":0,"no":"283","n":"ブースター","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/136.png","aid":"547190"},{"g":0,"s":0,"no":"294","n":"フリーザー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/144.png","aid":"547625"},{"g":0,"s":0,"no":"295","n":"サンダー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/145.png","aid":"547738"},{"g":0,"s":0,"no":"296","n":"ファイヤー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/146.png","aid":"547566"},{"g":0,"s":0,"no":"299","n":"ミュウツー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/150.png","aid":"547607"},{"g":0,"s":0,"no":"300","n":"ミュウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/151.png","aid":"547493"},{"g":0,"s":1,"no":"001","n":"シェルダー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/090.png","aid":"571315"},{"g":0,"s":1,"no":"002","n":"パルシェン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/091.png","aid":"571360"},{"g":0,"s":1,"no":"003","n":"タッツー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/116.png","aid":"571271"},{"g":0,"s":1,"no":"004","n":"シードラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/117.png","aid":"571269"},{"g":0,"s":1,"no":"006","n":"ヒトデマン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/120.png","aid":"571270"},{"g":0,"s":1,"no":"007","n":"スターミー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/121.png","aid":"571417"},{"g":1,"s":0,"no":"016","n":"キレイハナ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/182.png","aid":"547750"},{"g":1,"s":0,"no":"026","n":"ヤドキング","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/199.png","aid":"547301"},{"g":1,"s":0,"no":"031","n":"ハガネール","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/208.png","aid":"547761"},{"g":1,"s":0,"no":"034","n":"バルキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/236.png","aid":"547227"},{"g":1,"s":0,"no":"037","n":"カポエラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/237.png","aid":"547469"},{"g":1,"s":0,"no":"043","n":"ハッサム","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/212.png","aid":"547221"},{"g":1,"s":0,"no":"048","n":"ホーホー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/163.png","aid":"547148"},{"g":1,"s":0,"no":"049","n":"ヨルノズク","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/164.png","aid":"547326"},{"g":1,"s":0,"no":"050","n":"ヘラクロス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/214.png","aid":"547213"},{"g":1,"s":0,"no":"078","n":"ピチュー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/172.png","aid":"547395"},{"g":1,"s":0,"no":"083","n":"クロバット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/169.png","aid":"547624"},{"g":1,"s":0,"no":"102","n":"ハピナス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/242.png","aid":"548095"},{"g":1,"s":0,"no":"103","n":"エレキッド","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/239.png","aid":"547375"},{"g":1,"s":0,"no":"109","n":"イトマル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/167.png","aid":"547292"},{"g":1,"s":0,"no":"110","n":"アリアドス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/168.png","aid":"547585"},{"g":1,"s":0,"no":"111","n":"メリープ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/179.png","aid":"547398"},{"g":1,"s":0,"no":"112","n":"モココ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/180.png","aid":"547586"},{"g":1,"s":0,"no":"113","n":"デンリュウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/181.png","aid":"548017"},{"g":1,"s":0,"no":"115","n":"マリル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/183.png","aid":"547278"},{"g":1,"s":0,"no":"116","n":"マリルリ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/184.png","aid":"547587"},{"g":1,"s":0,"no":"117","n":"パルデアウパー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/194_1.png","aid":"547669"},{"g":1,"s":0,"no":"119","n":"ドーブル(ペインター)","img":"https://img.gamewith.jp/img/b35242d592fa64fd81a194f155b4c817.png","aid":"547782"},{"g":1,"s":0,"no":"148","n":"ピィ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/173.png","aid":"547535"},{"g":1,"s":0,"no":"151","n":"ププリン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/174.png","aid":"547457"},{"g":1,"s":0,"no":"162","n":"ブビィ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/240.png","aid":"547510"},{"g":1,"s":0,"no":"166","n":"ウソッキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/185.png","aid":"547593"},{"g":1,"s":0,"no":"167","n":"ヤミカラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/198.png","aid":"547789"},{"g":1,"s":0,"no":"169","n":"ヨーギラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/246.png","aid":"547299"},{"g":1,"s":0,"no":"170","n":"サナギラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/247.png","aid":"547536"},{"g":1,"s":0,"no":"171","n":"バンギラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/248.png","aid":"547594"},{"g":1,"s":0,"no":"212","n":"ニョロトノ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/186.png","aid":"547604"},{"g":1,"s":0,"no":"219","n":"ポリゴン２","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/233.png","aid":"548000"},{"g":1,"s":0,"no":"224","n":"ヒノアラシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/155.png","aid":"547546"},{"g":1,"s":0,"no":"225","n":"マグマラシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/156.png","aid":"547610"},{"g":1,"s":0,"no":"226","n":"バクフーン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/157.png","aid":"547882"},{"g":1,"s":0,"no":"227","n":"ムウマ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/200.png","aid":"547533"},{"g":1,"s":0,"no":"229","n":"キリンリキ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/203.png","aid":"547547"},{"g":1,"s":0,"no":"284","n":"エーフィ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/196.png","aid":"547191"},{"g":1,"s":0,"no":"285","n":"ブラッキー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/197.png","aid":"547192"},{"g":1,"s":0,"no":"290","n":"ライコウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/243.png","aid":"547365"},{"g":1,"s":0,"no":"291","n":"エンテイ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/244.png","aid":"547731"},{"g":1,"s":0,"no":"292","n":"スイクン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/245.png","aid":"547728"},{"g":1,"s":0,"no":"297","n":"ルギア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/249.png","aid":"547861"},{"g":1,"s":0,"no":"298","n":"ホウオウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/250.png","aid":"547851"},{"g":1,"s":1,"no":"005","n":"キングドラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/230.png","aid":"571268"},{"g":1,"s":1,"no":"008","n":"ワニノコ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/158.png","aid":"571356"},{"g":1,"s":1,"no":"009","n":"アリゲイツ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/159.png","aid":"571272"},{"g":1,"s":1,"no":"010","n":"オーダイル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/160.png","aid":"571300"},{"g":1,"s":1,"no":"011","n":"チョンチー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/170.png","aid":"570806"},{"g":1,"s":1,"no":"012","n":"ランターン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/171.png","aid":"571387"},{"g":1,"s":1,"no":"013","n":"サニーゴ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/222.png","aid":"570735"},{"g":1,"s":2,"no":"001","n":"ハネッコ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/187.png","aid":"548206"},{"g":1,"s":2,"no":"002","n":"ポポッコ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/188.png","aid":"548205"},{"g":1,"s":2,"no":"003","n":"ワタッコ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/189.png","aid":"548204"},{"g":2,"s":0,"no":"051","n":"バルビート","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/313.png","aid":"547431"},{"g":2,"s":0,"no":"052","n":"イルミーゼ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/314.png","aid":"547342"},{"g":2,"s":0,"no":"053","n":"ゴクリン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/316.png","aid":"547351"},{"g":2,"s":0,"no":"054","n":"マルノーム","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/317.png","aid":"547902"},{"g":2,"s":0,"no":"055","n":"サボネア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/331.png","aid":"547317"},{"g":2,"s":0,"no":"056","n":"ノクタス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/332.png","aid":"547505"},{"g":2,"s":0,"no":"114","n":"ルリリ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/298.png","aid":"547281"},{"g":2,"s":0,"no":"120","n":"アチャモ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/255.png","aid":"547320"},{"g":2,"s":0,"no":"121","n":"ワカシャモ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/256.png","aid":"547561"},{"g":2,"s":0,"no":"122","n":"バシャーモ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/257.png","aid":"547792"},{"g":2,"s":0,"no":"123","n":"キャモメ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/278.png","aid":"547277"},{"g":2,"s":0,"no":"124","n":"ペリッパー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/279.png","aid":"547588"},{"g":2,"s":0,"no":"125","n":"マクノシタ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/296.png","aid":"547306"},{"g":2,"s":0,"no":"126","n":"ハリテヤマ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/297.png","aid":"547502"},{"g":2,"s":0,"no":"127","n":"アブソル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/359.png","aid":"547837"},{"g":2,"s":0,"no":"172","n":"ハスボー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/270.png","aid":"547364"},{"g":2,"s":0,"no":"173","n":"ハスブレロ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/271.png","aid":"547481"},{"g":2,"s":0,"no":"174","n":"ルンパッパ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/272.png","aid":"547355"},{"g":2,"s":0,"no":"175","n":"クチート","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/303.png","aid":"547885"},{"g":2,"s":0,"no":"176","n":"コータス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/324.png","aid":"547266"},{"g":2,"s":0,"no":"231","n":"ラルトス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/280.png","aid":"547872"},{"g":2,"s":0,"no":"232","n":"キルリア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/281.png","aid":"547883"},{"g":2,"s":0,"no":"233","n":"サーナイト","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/282.png","aid":"547752"},{"g":2,"s":0,"no":"235","n":"プラスル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/311.png","aid":"547815"},{"g":2,"s":0,"no":"236","n":"マイナン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/312.png","aid":"547845"},{"g":2,"s":0,"no":"237","n":"ナックラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/328.png","aid":"547537"},{"g":2,"s":0,"no":"238","n":"ビブラーバ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/329.png","aid":"547611"},{"g":2,"s":0,"no":"239","n":"フライゴン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/330.png","aid":"547612"},{"g":2,"s":0,"no":"240","n":"チルット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/333.png","aid":"547538"},{"g":2,"s":0,"no":"241","n":"チルタリス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/334.png","aid":"547757"},{"g":2,"s":0,"no":"242","n":"ヨマワル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/355.png","aid":"547540"},{"g":2,"s":0,"no":"243","n":"サマヨール","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/356.png","aid":"547870"},{"g":2,"s":0,"no":"245","n":"ダンバル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/374.png","aid":"548088"},{"g":2,"s":0,"no":"246","n":"メタング","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/375.png","aid":"547568"},{"g":2,"s":0,"no":"247","n":"メタグロス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/376.png","aid":"548035"},{"g":2,"s":0,"no":"289","n":"カイオーガ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/382.png","aid":"547255"},{"g":2,"s":1,"no":"014","n":"ミズゴロウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/258.png","aid":"570801"},{"g":2,"s":1,"no":"015","n":"ヌマクロー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/259.png","aid":"571301"},{"g":2,"s":1,"no":"016","n":"ラグラージ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/260.png","aid":"571329"},{"g":2,"s":1,"no":"017","n":"キバニア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/318.png","aid":"570812"},{"g":2,"s":1,"no":"018","n":"サメハダー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/319.png","aid":"571221"},{"g":2,"s":1,"no":"019","n":"ドジョッチ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/339.png","aid":"571344"},{"g":2,"s":1,"no":"020","n":"ナマズン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/340.png","aid":"571394"},{"g":2,"s":1,"no":"021","n":"ヘイガニ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/341.png","aid":"570802"},{"g":2,"s":1,"no":"022","n":"シザリガー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/342.png","aid":"571314"},{"g":2,"s":1,"no":"023","n":"ラブカス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/370.png","aid":"571252"},{"g":2,"s":2,"no":"004","n":"ヤミラミ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/302.png","aid":"559298"},{"g":2,"s":2,"no":"005","n":"ジラーチ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/385.png","aid":"564918"},{"g":2,"s":2,"no":"006","n":"ヒンバス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/349.png","aid":"572448"},{"g":2,"s":2,"no":"007","n":"ミロカロス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/350.png","aid":"572449"},{"g":3,"s":0,"no":"029","n":"ジバコイル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/462.png","aid":"547933"},{"g":3,"s":0,"no":"041","n":"モジャンボ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/465.png","aid":"549796"},{"g":3,"s":0,"no":"041","n":"モジャンボ(はかせ)","img":"https://img.gamewith.jp/img/2ad291ac50cfaf0af89534fedcb314c4.png","aid":"547775"},{"g":3,"s":0,"no":"057","n":"ミツハニー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/415.png","aid":"547166"},{"g":3,"s":0,"no":"058","n":"ビークイン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/416.png","aid":"547240"},{"g":3,"s":0,"no":"059","n":"カラナクシ(にし)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/422.png","aid":"547964"},{"g":3,"s":0,"no":"059","n":"カラナクシ(ひがし)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/422_1.png","aid":"547367"},{"g":3,"s":0,"no":"060","n":"トリトドン(にし)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/423.png","aid":"548018"},{"g":3,"s":0,"no":"060","n":"トリトドン(ひがし)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/423_1.png","aid":"547890"},{"g":3,"s":0,"no":"061","n":"フワンテ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/425.png","aid":"547185"},{"g":3,"s":0,"no":"062","n":"フワライド","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/426.png","aid":"547873"},{"g":3,"s":0,"no":"100","n":"ピンプク","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/440.png","aid":"547447"},{"g":3,"s":0,"no":"105","n":"エレキブル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/466.png","aid":"547989"},{"g":3,"s":0,"no":"107","n":"ゴンベ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/446.png","aid":"547705"},{"g":3,"s":0,"no":"128","n":"ポッチャマ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/393.png","aid":"547315"},{"g":3,"s":0,"no":"129","n":"ポッタイシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/394.png","aid":"547496"},{"g":3,"s":0,"no":"130","n":"エンペルト","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/395.png","aid":"547938"},{"g":3,"s":0,"no":"164","n":"ブーバーン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/467.png","aid":"547754"},{"g":3,"s":0,"no":"165","n":"ウソハチ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/438.png","aid":"547258"},{"g":3,"s":0,"no":"168","n":"ドンカラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/430.png","aid":"547842"},{"g":3,"s":0,"no":"177","n":"コロボーシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/401.png","aid":"547333"},{"g":3,"s":0,"no":"178","n":"コロトック","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/402.png","aid":"547627"},{"g":3,"s":0,"no":"179","n":"ペラップ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/441.png","aid":"547250"},{"g":3,"s":0,"no":"180","n":"リオル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/447.png","aid":"547246"},{"g":3,"s":0,"no":"181","n":"ルカリオ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/448.png","aid":"547806"},{"g":3,"s":0,"no":"182","n":"ステレオロトム","img":"https://img.gamewith.jp/img/d11d697ef2104264698811df9e70db4c.png","aid":"547759"},{"g":3,"s":0,"no":"216","n":"マネネ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/439.png","aid":"547998"},{"g":3,"s":0,"no":"220","n":"ポリゴンZ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/474.png","aid":"548003"},{"g":3,"s":0,"no":"228","n":"ムウマージ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/429.png","aid":"547856"},{"g":3,"s":0,"no":"234","n":"エルレイド","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/475.png","aid":"548093"},{"g":3,"s":0,"no":"244","n":"ヨノワール","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/477.png","aid":"547869"},{"g":3,"s":0,"no":"272","n":"ズガイドス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/408.png","aid":"547803"},{"g":3,"s":0,"no":"273","n":"ラムパルド","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/409.png","aid":"547802"},{"g":3,"s":0,"no":"274","n":"タテトプス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/410.png","aid":"547659"},{"g":3,"s":0,"no":"275","n":"トリデプス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/411.png","aid":"547456"},{"g":3,"s":0,"no":"286","n":"リーフィア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/470.png","aid":"547193"},{"g":3,"s":0,"no":"287","n":"グレイシア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/471.png","aid":"547194"},{"g":3,"s":1,"no":"024","n":"ブイゼル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/418.png","aid":"571273"},{"g":3,"s":1,"no":"025","n":"フローゼル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/419.png","aid":"571303"},{"g":3,"s":1,"no":"026","n":"ケイコウオ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/456.png","aid":"571251"},{"g":3,"s":1,"no":"027","n":"ネオラント","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/457.png","aid":"571253"},{"g":3,"s":1,"no":"049","n":"フィオネ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/489.png","aid":"571380"},{"g":3,"s":1,"no":"050","n":"マナフィ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/490.png","aid":"570665"},{"g":4,"s":0,"no":"063","n":"モグリュー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/529.png","aid":"547181"},{"g":4,"s":0,"no":"064","n":"ドリュウズ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/530.png","aid":"547430"},{"g":4,"s":0,"no":"065","n":"ドッコラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/532.png","aid":"547159"},{"g":4,"s":0,"no":"066","n":"ドテッコツ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/533.png","aid":"547297"},{"g":4,"s":0,"no":"067","n":"ローブシン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/534.png","aid":"547556"},{"g":4,"s":0,"no":"068","n":"ヒトモシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/607.png","aid":"547199"},{"g":4,"s":0,"no":"069","n":"ランプラー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/608.png","aid":"547715"},{"g":4,"s":0,"no":"070","n":"シャンデラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/609.png","aid":"547724"},{"g":4,"s":0,"no":"071","n":"キバゴ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/610.png","aid":"547175"},{"g":4,"s":0,"no":"072","n":"オノンド","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/611.png","aid":"547419"},{"g":4,"s":0,"no":"073","n":"オノノクス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/612.png","aid":"548019"},{"g":4,"s":0,"no":"131","n":"タブンネ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/531.png","aid":"547589"},{"g":4,"s":0,"no":"132","n":"ヤブクロン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/568.png","aid":"547330"},{"g":4,"s":0,"no":"133","n":"ダストダス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/569.png","aid":"547758"},{"g":4,"s":0,"no":"134","n":"ゾロア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/570.png","aid":"547357"},{"g":4,"s":0,"no":"135","n":"ゾロアーク","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/571.png","aid":"547590"},{"g":4,"s":0,"no":"136","n":"チラーミィ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/572.png","aid":"547280"},{"g":4,"s":0,"no":"137","n":"チラチーノ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/573.png","aid":"547929"},{"g":4,"s":0,"no":"183","n":"メラルバ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/636.png","aid":"547459"},{"g":4,"s":0,"no":"184","n":"ウルガモス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/637.png","aid":"547734"},{"g":4,"s":0,"no":"248","n":"ツタージャ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/495.png","aid":"547614"},{"g":4,"s":0,"no":"249","n":"ジャノビー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/496.png","aid":"547855"},{"g":4,"s":0,"no":"250","n":"ジャローダ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/497.png","aid":"547947"},{"g":4,"s":1,"no":"028","n":"プルリル(オス)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/592.png","aid":"571361"},{"g":4,"s":1,"no":"028","n":"プルリル(メス)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/592_1.png","aid":"571337"},{"g":4,"s":1,"no":"029","n":"ブルンゲル(オス)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/593.png","aid":"571388"},{"g":4,"s":1,"no":"029","n":"ブルンゲル(メス)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/593_1.png","aid":"571376"},{"g":4,"s":1,"no":"030","n":"ママンボウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/594.png","aid":"571362"},{"g":4,"s":1,"no":"031","n":"マッギョ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/618.png","aid":"570818"},{"g":5,"s":0,"no":"074","n":"ヌメラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/704.png","aid":"547231"},{"g":5,"s":0,"no":"075","n":"ヌメイル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/705.png","aid":"547437"},{"g":5,"s":0,"no":"076","n":"ヌメルゴン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/706.png","aid":"548114"},{"g":5,"s":0,"no":"251","n":"ケロマツ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/656.png","aid":"547524"},{"g":5,"s":0,"no":"252","n":"ゲコガシラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/657.png","aid":"547616"},{"g":5,"s":0,"no":"253","n":"ゲッコウガ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/658.png","aid":"547615"},{"g":5,"s":0,"no":"254","n":"デデンネ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/702.png","aid":"547984"},{"g":5,"s":0,"no":"255","n":"オンバット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/714.png","aid":"547976"},{"g":5,"s":0,"no":"256","n":"オンバーン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/715.png","aid":"547985"},{"g":5,"s":0,"no":"276","n":"チゴラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/696.png","aid":"547849"},{"g":5,"s":0,"no":"277","n":"ガチゴラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/697.png","aid":"547311"},{"g":5,"s":0,"no":"278","n":"アマルス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/698.png","aid":"547654"},{"g":5,"s":0,"no":"279","n":"アマルルガ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/699.png","aid":"547663"},{"g":5,"s":0,"no":"288","n":"ニンフィア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/700.png","aid":"547195"},{"g":5,"s":0,"no":"293","n":"ボルケニオン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/721.png","aid":"547383"},{"g":5,"s":1,"no":"032","n":"マーイーカ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/686.png","aid":"571419"},{"g":5,"s":1,"no":"033","n":"カラマネロ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/687.png","aid":"571304"},{"g":6,"s":0,"no":"138","n":"アゴジムシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/736.png","aid":"547591"},{"g":6,"s":0,"no":"139","n":"デンヂムシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/737.png","aid":"547884"},{"g":6,"s":0,"no":"140","n":"クワガノン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/738.png","aid":"547790"},{"g":6,"s":0,"no":"141","n":"ミミッキュ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/778.png","aid":"547693"},{"g":6,"s":0,"no":"185","n":"モクロー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/722.png","aid":"547796"},{"g":6,"s":0,"no":"186","n":"フクスロー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/723.png","aid":"547253"},{"g":6,"s":0,"no":"187","n":"ジュナイパー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/724.png","aid":"547787"},{"g":6,"s":1,"no":"034","n":"アシマリ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/728.png","aid":"570686"},{"g":6,"s":1,"no":"035","n":"オシャマリ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/729.png","aid":"571368"},{"g":6,"s":1,"no":"036","n":"アシレーヌ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/730.png","aid":"571415"},{"g":6,"s":1,"no":"037","n":"ヒドイデ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/747.png","aid":"571220"},{"g":6,"s":1,"no":"038","n":"ドヒドイデ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/748.png","aid":"571416"},{"g":6,"s":1,"no":"039","n":"コソクムシ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/767.png","aid":"571293"},{"g":6,"s":1,"no":"040","n":"グソクムシャ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/768.png","aid":"571355"},{"g":6,"s":1,"no":"041","n":"ハギギシリ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/779.png","aid":"571234"},{"g":6,"s":1,"no":"042","n":"ダダリン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/781.png","aid":"571418"},{"g":7,"s":0,"no":"077","n":"ウッウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/845.png","aid":"547530"},{"g":7,"s":0,"no":"188","n":"ヒバニー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/813.png","aid":"547245"},{"g":7,"s":0,"no":"189","n":"ラビフット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/814.png","aid":"547596"},{"g":7,"s":0,"no":"190","n":"エースバーン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/815.png","aid":"547674"},{"g":7,"s":0,"no":"191","n":"ホシガリス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/819.png","aid":"547550"},{"g":7,"s":0,"no":"192","n":"ヨクバリス(コック)","img":"https://img.gamewith.jp/img/2bb9b3724d26a82c9cf9813d524fd6b3.png","aid":"547726"},{"g":7,"s":0,"no":"193","n":"タンドン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/837.png","aid":"547597"},{"g":7,"s":0,"no":"194","n":"トロッゴン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/838.png","aid":"547298"},{"g":7,"s":0,"no":"195","n":"セキタンザン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/839.png","aid":"547965"},{"g":7,"s":0,"no":"196","n":"エレズン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/848.png","aid":"547877"},{"g":7,"s":0,"no":"197","n":"ストリンダー(ハイ)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/849.png","aid":"547895"},{"g":7,"s":0,"no":"197","n":"ストリンダー(ロー)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/849_1.png","aid":"547894"},{"g":7,"s":0,"no":"257","n":"ココガラ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/821.png","aid":"547531"},{"g":7,"s":0,"no":"258","n":"アオガラス","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/822.png","aid":"547617"},{"g":7,"s":0,"no":"259","n":"アーマーガア","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/823.png","aid":"547896"},{"g":7,"s":0,"no":"260","n":"ドラメシヤ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/885.png","aid":"547518"},{"g":7,"s":0,"no":"261","n":"ドロンチ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/886.png","aid":"547620"},{"g":7,"s":0,"no":"262","n":"ドラパルト","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/887.png","aid":"547852"},{"g":7,"s":1,"no":"043","n":"カムカメ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/833.png","aid":"571364"},{"g":7,"s":1,"no":"044","n":"カジリガメ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/834.png","aid":"571365"},{"g":7,"s":1,"no":"045","n":"バチンウニ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/871.png","aid":"571330"},{"g":8,"s":0,"no":"118","n":"ドオー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/980.png","aid":"547739"},{"g":8,"s":0,"no":"142","n":"パモ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/921.png","aid":"547356"},{"g":8,"s":0,"no":"143","n":"パモット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/922.png","aid":"547363"},{"g":8,"s":0,"no":"144","n":"パーモット","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/923.png","aid":"547765"},{"g":8,"s":0,"no":"145","n":"シャリタツ(そったすがた)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/978.png","aid":"547706"},{"g":8,"s":0,"no":"145","n":"シャリタツ(たれたすがた)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/978_1.png","aid":"548202"},{"g":8,"s":0,"no":"145","n":"シャリタツ(のびたすがた)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/978_2.png","aid":"548203"},{"g":8,"s":0,"no":"198","n":"パピモッチ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/926.png","aid":"547435"},{"g":8,"s":0,"no":"199","n":"バウッツェル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/927.png","aid":"547763"},{"g":8,"s":0,"no":"200","n":"カルボウ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/935.png","aid":"547310"},{"g":8,"s":0,"no":"201","n":"グレンアルマ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/936.png","aid":"547647"},{"g":8,"s":0,"no":"202","n":"ソウブレイズ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/937.png","aid":"547644"},{"g":8,"s":0,"no":"203","n":"キラーメ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/969.png","aid":"547599"},{"g":8,"s":0,"no":"204","n":"キラフロル","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/970.png","aid":"547804"},{"g":8,"s":0,"no":"205","n":"コレクレー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/999.png","aid":"547334"},{"g":8,"s":0,"no":"206","n":"サーフゴー","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/1000.png","aid":"548116"},{"g":8,"s":0,"no":"230","n":"リキキリン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/981.png","aid":"547854"},{"g":8,"s":0,"no":"263","n":"ニャオハ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/906.png","aid":"547515"},{"g":8,"s":0,"no":"264","n":"ニャローテ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/907.png","aid":"548086"},{"g":8,"s":0,"no":"265","n":"マスカーニャ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/908.png","aid":"548115"},{"g":8,"s":0,"no":"266","n":"カイデン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/940.png","aid":"547618"},{"g":8,"s":0,"no":"267","n":"タイカイデン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/941.png","aid":"547887"},{"g":8,"s":0,"no":"268","n":"カヌチャン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/957.png","aid":"547551"},{"g":8,"s":0,"no":"269","n":"ナカヌチャン","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/958.png","aid":"547811"},{"g":8,"s":0,"no":"270","n":"デカヌチャン(おやかた)","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/959.png","aid":"547939"},{"g":8,"s":1,"no":"046","n":"ウミディグダ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/960.png","aid":"571249"},{"g":8,"s":1,"no":"047","n":"ウミトリオ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/961.png","aid":"571292"},{"g":8,"s":1,"no":"048","n":"ミガルーサ","img":"https://img.gamewith.jp/article_tools/pocoapokemon/gacha/976.png","aid":"571250"}];
+      const SEC = ["本編", "DLC", "イベント"];
+      const BASE = "https://gamewith.jp/pocoapokemon/";
+
+      const toKata = (s) => s.replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
+      const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+      const baseName = (n) => n.replace(/\(.*\)/, "").replace(/^パルデア|^ステレオ/, "");
+      const countSpecies = (list) => new Set(list.map((d) => baseName(d.n))).size;
+
+      function card(d) {
+        const badge = d.s === 1 ? '<span class="badge dlc">DLC</span>' : d.s === 2 ? '<span class="badge event">イベント</span>' : "";
+        const no = (d.s === 0 ? "No." : d.s === 1 ? "うみぞこ " : "イベ.") + d.no;
+        const inner =
+          badge +
+          `<img src="${esc(d.img)}" alt="" width="88" height="88" loading="lazy" referrerpolicy="no-referrer" onerror="this.classList.add('broken')">` +
+          `<span class="no">${no}</span><span class="name">${esc(d.n)}</span>`;
+        return d.aid
+          ? `<a class="card" href="${BASE}${d.aid}" target="_blank" rel="noopener">${inner}</a>`
+          : `<div class="card">${inner}</div>`;
+      }
+
+      const list = document.getElementById("list");
+      const nav = document.getElementById("genNav");
+      const q = document.getElementById("q");
+      const checks = [...document.querySelectorAll(".filters input")];
+
+      document.getElementById("summary").textContent =
+        `全${countSpecies(DATA)}種（姿違いを含め${DATA.length}件）・本編／DLC第1弾／イベント図鑑`;
+
+      function render() {
+        const raw = q.value.trim();
+        const term = toKata(raw);
+        const on = new Set(checks.filter((c) => c.checked).map((c) => +c.dataset.s));
+        const shown = DATA.filter((d) => on.has(d.s) && (!raw || d.n.includes(raw) || d.n.includes(term)));
+        let html = "";
+        let navHtml = "";
+        GENS.forEach((g, i) => {
+          const items = shown.filter((d) => d.g === i);
+          if (!items.length) return;
+          const n = countSpecies(items);
+          navHtml += `<a href="#gen-${i}">${g}<small>${n}</small></a>`;
+          html += `<section class="gen" id="gen-${i}"><div class="gen-head"><h2>${g}</h2><span>${n}種</span></div><div class="grid">${items.map(card).join("")}</div></section>`;
+        });
+        list.innerHTML = html || '<div class="empty">該当するポケモンがいません</div>';
+        nav.innerHTML = navHtml;
+        document.getElementById("hit").textContent = shown.length === DATA.length ? "" : `${shown.length}件表示中`;
+      }
+
+      q.addEventListener("input", render);
+      checks.forEach((c) => c.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>
